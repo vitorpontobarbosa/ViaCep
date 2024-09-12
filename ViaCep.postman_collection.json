@@ -84,6 +84,64 @@
 					"response": []
 				},
 				{
+					"name": "ValidaCepBadRequest",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://viacep.com.br/ws/:Cep/:Formato/",
+							"protocol": "https",
+							"host": [
+								"viacep",
+								"com",
+								"br"
+							],
+							"path": [
+								"ws",
+								":Cep",
+								":Formato",
+								""
+							],
+							"variable": [
+								{
+									"key": "Cep",
+									"value": "abc",
+									"description": "Valor inválido\n"
+								},
+								{
+									"key": "Formato",
+									"value": "json"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "ValidaCepSuccess",
 					"event": [
 						{
@@ -295,7 +353,7 @@
 					"response": []
 				},
 				{
-					"name": "PesquisaCepBadRequest",
+					"name": "PesquisaCepRuaBadRequest",
 					"event": [
 						{
 							"listen": "test",
@@ -350,6 +408,131 @@
 									"key": "rua",
 									"value": "E",
 									"description": "Tamanho minimo 3 letras"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PesquisaCepEstadoBadRequest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Throughput is within acceptable range\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000, \"Response time should be less than 1000ms\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://viacep.com.br/ws/:Estado/:Cidade/:rua/json/",
+							"protocol": "https",
+							"host": [
+								"viacep",
+								"com",
+								"br"
+							],
+							"path": [
+								"ws",
+								":Estado",
+								":Cidade",
+								":rua",
+								"json",
+								""
+							],
+							"variable": [
+								{
+									"key": "Estado",
+									"value": "PBJ",
+									"description": "Deve conter duas letras"
+								},
+								{
+									"key": "Cidade",
+									"value": "Joao pessoa"
+								},
+								{
+									"key": "rua",
+									"value": "Epitácio",
+									"description": "Tamanho minimo 3 letras"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PesquisaCepCidadeBadRequest Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Throughput is within acceptable range\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000, \"Response time should be less than 1000ms\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://viacep.com.br/ws/:Estado/:Cidade/:rua/json/",
+							"protocol": "https",
+							"host": [
+								"viacep",
+								"com",
+								"br"
+							],
+							"path": [
+								"ws",
+								":Estado",
+								":Cidade",
+								":rua",
+								"json",
+								""
+							],
+							"variable": [
+								{
+									"key": "Estado",
+									"value": "PB"
+								},
+								{
+									"key": "Cidade",
+									"value": "J",
+									"description": "Tamanho minimo 3 letras"
+								},
+								{
+									"key": "rua",
+									"value": "E"
 								}
 							]
 						}
